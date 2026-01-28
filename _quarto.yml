@@ -1,6 +1,7 @@
 project:
   type: website
-
+  output-dir: docs  #next time I render, it'll create folder called dox w all needed to create it in that folder
+  
 website:
   description: "A blog built with Quarto"
   site-url: https://your-website-url.example.com # you must change this appropriately for RSS feeds to work properly
