@@ -11,7 +11,7 @@
     "href": "index.html",
     "title": "ds334_blog",
     "section": "",
-    "text": "Post With Code\n\n\n\nnews\n\ncode\n\nanalysis\n\n\n\n\n\n\n\n\n\nJan 28, 2026\n\n\nHarlow Malloc\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
+    "text": "Blog 1\n\n\n\nepidemiology\n\ncode\n\nanalysis\n\nmapping\n\n\n\n\n\n\n\n\n\nFeb 2, 2026\n\n\nRory Sauereisen\n\n\n\n\n\n\n\n\n\n\n\n\nWelcome To My Blog\n\n\n\nnews\n\n\n\n\n\n\n\n\n\nJan 25, 2026\n\n\nTristan O’Malley\n\n\n\n\n\nNo matching items"
   },
   {
     "objectID": "about.html",
@@ -21,10 +21,38 @@
     "text": "About this blog"
   },
   {
-    "objectID": "posts/post-with-code/index.html",
-    "href": "posts/post-with-code/index.html",
-    "title": "Post With Code",
+    "objectID": "posts/HIV prevalence - Blog1/index.html",
+    "href": "posts/HIV prevalence - Blog1/index.html",
+    "title": "Blog 1",
     "section": "",
-    "text": "This is a post with executable code.\n\n1 + 1\n\n[1] 2"
+    "text": "library(readr)\nhiv_prevalence &lt;- read_delim(\"hiv_prevalence.csv\", skip = 1,\n                           delim = \";\")  #this takes care of the excel to imported data conversion.\n#Data originally contains a second row of column names, and oddly combines data. \n\n#Further tidying the dataset: \nlibrary(dplyr)\nlibrary(tidyverse)\nhiv_prevalence_clean &lt;- \n  hiv_prevalence |&gt;\n  rename(region = ...1, prevalence = `of HIV/AIDS,`,\n         n_people = `with HIV/AIDS,`, deaths = `from HIV/AIDS,`,\n         datayear = ...5) |&gt;\n  mutate(region = str_replace_all(region, \"\\xa0\", \"\")) |&gt;\n  mutate(prevalence = str_replace_all(prevalence, \"%\", \"\")) |&gt;\n  mutate(prevalence = as.numeric(prevalence)) |&gt;\n  mutate(n_people = str_replace_all(n_people, \",\", \"\")) |&gt;\n  mutate(n_people = as.numeric(n_people)) |&gt;\n  mutate(deaths = str_replace_all(deaths, \",\", \"\")) |&gt;\n  mutate(deaths = as.numeric(deaths)) |&gt;\n  mutate(region = if_else(region == \"United States\",   #to match mapping data later\n                           true = \"USA\", \n                           false = region))"
+  },
+  {
+    "objectID": "posts/HIV prevalence - Blog1/index.html#ranking-regional-hiv-prevalence",
+    "href": "posts/HIV prevalence - Blog1/index.html#ranking-regional-hiv-prevalence",
+    "title": "Blog 1",
+    "section": "Ranking regional HIV prevalence",
+    "text": "Ranking regional HIV prevalence\n\n#create subdataset of top 10 HIV prevalence regions in 2024\n# all year data:\nhiv_prevALL_top10 &lt;- \nhiv_prevalence_clean |&gt;\n  arrange(desc(prevalence)) |&gt;\n  slice(1:10) |&gt;\n  mutate(region = fct_reorder(region, prevalence))\n\n#lollipop plot - all data\nggplot(data = hiv_prevALL_top10, aes(x=prevalence, y=region)) +\n  geom_segment(aes(yend = region, x=0, xend = prevalence, color = \"blue3\"), show.legend= FALSE) +\n  geom_point(size = 2) +\n  theme_minimal() +\n  labs(title = \"Data Not Limited by Year\")\n\n\n\n\n\n\n\n\nThe above lollipop plots display the top 10 regions in this data set that have the highest prevalence of HIV. It appears that the top four regions have HIV prevalence around 24% (Eswatini, Lesotho, Botswana, and Zimbabwe), and have a lead in HIV prevalence by roughly 5% in comparison to the next ranked regions. These are also close in prevalence, hovering around 13% prevalence before the last two ranked regions that are collectively about 3% lower in prevalence. When all the data is held consistent at the same timestamp of year 2024, we see a similar trend:\n\n#2024 data:\nhiv_prev24_top10 &lt;- \nhiv_prevalence_clean |&gt;\n  filter(datayear == \"2024\") |&gt;\n  arrange(desc(prevalence)) |&gt;\n  slice(1:10) |&gt;\n  mutate(region = fct_reorder(region, prevalence))\n\n#lollipop plot - 2024 data\nggplot(data = hiv_prev24_top10, aes(x=prevalence, y=region)) +\n  geom_segment(aes(yend = region, x=0, xend = prevalence, color = \"blue3\"), show.legend= FALSE) +\n  geom_point(size = 2) +\n  theme_minimal() +\n  labs(title = \"Year 2024 limited data\")\n\n\n\n\n\n\n\n\nThe most notable difference between the collective data on prevalence and the data restricted to year 2024 is in the rankings for 7th through 10th. When year isn’t considered, the country that is introduced to this visualization is Zambia instead of Tanzania, taking 7th and bumping Malawi and Equatorial Guinea down a rank. The fact that there isn’t much of a shift in HIV prevalence when considering year could suggest that\n- A) more heavily HIV affected countries update their data more often, or\n- B) Regardless of the data’s time stamp, certain regions consistently have a higher prevalence of HIV."
+  },
+  {
+    "objectID": "posts/HIV prevalence - Blog1/index.html#mapping-hiv-prevalence",
+    "href": "posts/HIV prevalence - Blog1/index.html#mapping-hiv-prevalence",
+    "title": "Blog 1",
+    "section": "Mapping HIV prevalence",
+    "text": "Mapping HIV prevalence\n\n#get drawing coordinates to make world map\nworld_map &lt;- map_data(\"world\") \n\n#join the datasets:\nfull_worldHIV &lt;- left_join(world_map, hiv_prevalence_clean, \n                           join_by(region == region))\n\nggplot(data = full_worldHIV, aes(x = long, y = lat, \n                                 group = group)) +\n  geom_polygon(aes(fill=prevalence)) +\n  scale_fill_viridis_c() +\n  coord_map(projection = \"gilbert\") +\n  xlim(c(-180,180)) +\n  theme_void() +\n  labs(title = \"Global HIV prevalence(%)\")\n\n\n\n\n\n\n\n\nMapping HIV prevalence to a map of the world gives us further insight as to relative continental prevalence. Based on the map, we can see that the southern part of Africa appears to have higher HIV prevalence compared to other continents of the world. What limits this visualization however, is the greyed out countries showing a lack of data for that region. This is either due to a mismatch in region label when joining the datasets, or a lack of data for that region. The main takeaway is that Southern African regions appear to be the most affected by HIV in their population."
+  },
+  {
+    "objectID": "posts/HIV prevalence - Blog1/index.html#flaws",
+    "href": "posts/HIV prevalence - Blog1/index.html#flaws",
+    "title": "Blog 1",
+    "section": "Flaws",
+    "text": "Flaws\n\nMy approach to this dataset, as earlier mentioned, is limited by the temporal stamp of the data reported. Although it didn’t vastly affect interpretations, it should still be considered when evaluating HIV prevalence.\n\n\nThe world map visualization of prevalence is missing considerable data, which limits the confidence of my conclusion that Southern Africa is the the most affected by HIV.\n\n## Future Directions\nPrevalence isn’t the only way to visualize the spread and impact of a disease, and in future visualizations the number of people with the disease, as well as deaths from it, should be presented.\n\n\nIf given more time, I would comb through the region labels and adjust them or confirm that they match the labels within the world_map data set. Making sure the labels align would insure that all the regions in the HIV data set are actually represented in the map."
+  },
+  {
+    "objectID": "posts/HIV prevalence - Blog1/index.html#connections-to-data334",
+    "href": "posts/HIV prevalence - Blog1/index.html#connections-to-data334",
+    "title": "Blog 1",
+    "section": "Connections to Data334",
+    "text": "Connections to Data334\n\nLollipop plot: This is a good visualization because the line segments all start at 0, so they provide an accurate communal baseline for reader interpretation. The size and color of the lollipops has also been adjusted for aesthetic pleasure. To distinguish between the 2 datasets used, a title above the plot is also utilized, so its easier for the reader to orient themselves.\n\nSequential map: This is a good visualization as the colors are color blind friendly, and there is no background grid or fluff to disorient the viewer. A label at the top clarifies what data is being used, and the color scale is sequential since it best represents the prevalence percentage scale (opposed to diverging or catagorical). One spot of critique would be limiting the greyed out countries, but that is already addressed. A map such as this is also a good visualization for this data, since it allows the reader to further pull ideas about geological hotspots of HIV for the globe, an inference that you couldn’t as confidently make out in just the lollipop plot."
   }
 ]

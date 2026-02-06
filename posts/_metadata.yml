@@ -3,6 +3,8 @@
 # freeze computational output
 # (see https://quarto.org/docs/projects/code-execution.html#freeze)
 freeze: true
+#^^ having this means you need to double render in order to update website! 
+## Render within your qmd tab, then render using the render website button 
 
 # Enable banner style title blocks
 title-block-banner: true

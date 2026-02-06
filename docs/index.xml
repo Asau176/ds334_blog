@@ -10,40 +10,612 @@
 <atom:link href="https://your-website-url.example.com/index.xml" rel="self" type="application/rss+xml"/>
 <description>A blog built with Quarto</description>
 <generator>quarto-1.8.25</generator>
-<lastBuildDate>Wed, 28 Jan 2026 05:00:00 GMT</lastBuildDate>
+<lastBuildDate>Mon, 02 Feb 2026 05:00:00 GMT</lastBuildDate>
 <item>
-  <title>Post With Code</title>
-  <dc:creator>Harlow Malloc</dc:creator>
-  <link>https://your-website-url.example.com/posts/post-with-code/</link>
+  <title>Blog 1</title>
+  <dc:creator>Rory Sauereisen</dc:creator>
+  <link>https://your-website-url.example.com/posts/HIV prevalence - Blog1/</link>
   <description><![CDATA[ 
 
 
 
 
 
-<p>This is a post with executable code.</p>
+<section id="this-post-explores-global-adult-hiv-prevalence-data-pulled-from-kaggle." class="level1">
+<h1>This post explores Global Adult HIV prevalence data pulled from Kaggle.</h1>
 <div class="cell">
-<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="dv" style="color: #AD0000;
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb1" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb1-1"><span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">1</span> <span class="sc" style="color: #5E5E5E;
+font-style: inherit;">library</span>(readr)</span>
+<span id="cb1-2">hiv_prevalence <span class="ot" style="color: #003B4F;
 background-color: null;
-font-style: inherit;">+</span> <span class="dv" style="color: #AD0000;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
 background-color: null;
-font-style: inherit;">1</span></span></code></pre></div></div>
-<div class="cell-output cell-output-stdout">
-<pre><code>[1] 2</code></pre>
+font-style: inherit;">read_delim</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"hiv_prevalence.csv"</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">skip =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>,</span>
+<span id="cb1-3">                           <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">delim =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">";"</span>)  <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#this takes care of the excel to imported data conversion.</span></span>
+<span id="cb1-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Data originally contains a second row of column names, and oddly combines data. </span></span>
+<span id="cb1-5"></span>
+<span id="cb1-6"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#Further tidying the dataset: </span></span>
+<span id="cb1-7"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(dplyr)</span>
+<span id="cb1-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">library</span>(tidyverse)</span>
+<span id="cb1-9">hiv_prevalence_clean <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> </span>
+<span id="cb1-10">  hiv_prevalence <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-11">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">rename</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">region =</span> ...<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">prevalence =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">of HIV/AIDS,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>,</span>
+<span id="cb1-12">         <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n_people =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">with HIV/AIDS,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">deaths =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span><span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">from HIV/AIDS,</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">`</span>,</span>
+<span id="cb1-13">         <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">datayear =</span> ...<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">5</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-14">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">region =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str_replace_all</span>(region, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">\xa0</span><span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-15">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">prevalence =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str_replace_all</span>(prevalence, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"%"</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-16">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">prevalence =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(prevalence)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-17">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n_people =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str_replace_all</span>(n_people, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">","</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-18">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">n_people =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(n_people)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-19">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">deaths =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">str_replace_all</span>(deaths, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">","</span>, <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">""</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-20">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">deaths =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">as.numeric</span>(deaths)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb1-21">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">region =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">if_else</span>(region <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"United States"</span>,   <span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#to match mapping data later</span></span>
+<span id="cb1-22">                           <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">true =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"USA"</span>, </span>
+<span id="cb1-23">                           <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">false =</span> region))</span></code></pre></div></div>
+</div>
+</section>
+<section id="introduction" class="level1">
+<h1>Introduction</h1>
+<p>This dataset contains Global Adult HIV prevalence data pulled from the online data source Kaggle, and contains 187 observations. HIV, or Human Immunodeficiency Virus, is a virus that limits your ability to fight other infections due to its own targeting of your body’s immune cells. HIV when left untreated can lead to AIDs, a later stage of the HIV infection that results from said immune system damage. There are current treatments to prolong the lives of those with HIV and limit its further spread, but there are currently no cures available for it.<br>
+This blog will mostly focus on the variables <code>region</code> and <code>prevalence</code> to visualize the distribution of HIV in the world; answering what region appears to have the highest prevalence while which appears to have the lowest. We’ll also be making inferences on what continents appear to have greater or lower HIV prevalence.<br>
+<br>
+<br>
+</p>
+<p><em>Dataset Notice:</em><br>
+Upon examining this data, I have found that the year the data was reported is inconsistent. This data set contains reported data on most regions, however the year associated with that entry isn’t uniform across all regions. For example, if I were to limit the observations to only containing those from 2024, my sample size would shrink to only 63 regions to make inferences from. Thus, in the following analyses, to maintain reliable interpretations, the information will be displayed twice. Once in the dataset’s totality (ignoring year source), and once sourcing data only from year 2024 to represent up-to-date information. (2024 also happens to be the year with the most data entries from).<br>
+</p>
+<section id="dataset-variable-decriptions" class="level3">
+<h3 class="anchored" data-anchor-id="dataset-variable-decriptions">Dataset Variable Decriptions:</h3>
+<p><em>region</em>: The geographical area being analyzed.<br>
+<em>prevalence</em>: Adult Prevalence (%), Percentage of adults aged 15–49 living with HIV.<br>
+<em>n_people</em>: Number of People with HIV/AIDS, Absolute count of individuals living with HIV in the region.<br>
+<em>deaths</em>: Annual Deaths from HIV/AIDS, Number of deaths attributed to HIV/AIDS annually.<br>
+<em>datayear</em>: Year of Estimate, The year when the data was collected or estimated.<br>
+</p>
+</section>
+</section>
+<section id="exploring-this-data-set" class="level1">
+<h1>Exploring this data set</h1>
+<section id="ranking-regional-hiv-prevalence" class="level2">
+<h2 class="anchored" data-anchor-id="ranking-regional-hiv-prevalence">Ranking regional HIV prevalence</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb2" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb2-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#create subdataset of top 10 HIV prevalence regions in 2024</span></span>
+<span id="cb2-2"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;"># all year data:</span></span>
+<span id="cb2-3">hiv_prevALL_top10 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> </span>
+<span id="cb2-4">hiv_prevalence_clean <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb2-5">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">arrange</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">desc</span>(prevalence)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb2-6">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb2-7">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">region =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">fct_reorder</span>(region, prevalence))</span>
+<span id="cb2-8"></span>
+<span id="cb2-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#lollipop plot - all data</span></span>
+<span id="cb2-10"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> hiv_prevALL_top10, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span>prevalence, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span>region)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-11">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_segment</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">yend =</span> region, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xend =</span> prevalence, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blue3"</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">show.legend=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-12">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_point</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-13">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb2-14">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Data Not Limited by Year"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/HIV prevalence - Blog1/index_files/figure-html/unnamed-chunk-2-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
 </div>
 </div>
+</div>
+<p>The above lollipop plots display the top 10 regions in this data set that have the highest prevalence of HIV. It appears that the top four regions have HIV prevalence around 24% (Eswatini, Lesotho, Botswana, and Zimbabwe), and have a lead in HIV prevalence by roughly 5% in comparison to the next ranked regions. These are also close in prevalence, hovering around 13% prevalence before the last two ranked regions that are collectively about 3% lower in prevalence. When all the data is held consistent at the same timestamp of year 2024, we see a similar trend:</p>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb3" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb3-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#2024 data:</span></span>
+<span id="cb3-2">hiv_prev24_top10 <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> </span>
+<span id="cb3-3">hiv_prevalence_clean <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb3-4">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">filter</span>(datayear <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"2024"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb3-5">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">arrange</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">desc</span>(prevalence)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb3-6">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">slice</span>(<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">1</span><span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">:</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">10</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">|&gt;</span></span>
+<span id="cb3-7">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">mutate</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">region =</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">fct_reorder</span>(region, prevalence))</span>
+<span id="cb3-8"></span>
+<span id="cb3-9"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#lollipop plot - 2024 data</span></span>
+<span id="cb3-10"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> hiv_prev24_top10, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span>prevalence, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y=</span>region)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-11">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_segment</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">yend =</span> region, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x=</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">0</span>, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">xend =</span> prevalence, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">color =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"blue3"</span>), <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">show.legend=</span> <span class="cn" style="color: #8f5902;
+background-color: null;
+font-style: inherit;">FALSE</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-12">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_point</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">size =</span> <span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">2</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-13">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_minimal</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb3-14">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Year 2024 limited data"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/HIV prevalence - Blog1/index_files/figure-html/unnamed-chunk-3-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>The most notable difference between the collective data on prevalence and the data restricted to year 2024 is in the rankings for 7th through 10th. When year isn’t considered, the country that is introduced to this visualization is Zambia instead of Tanzania, taking 7th and bumping Malawi and Equatorial Guinea down a rank. The fact that there isn’t much of a shift in HIV prevalence when considering year could suggest that<br>
+- A) more heavily HIV affected countries update their data more often, or<br>
+- B) Regardless of the data’s time stamp, certain regions consistently have a higher prevalence of HIV.<br>
+<br>
+<br>
+</p>
+</section>
+<section id="mapping-hiv-prevalence" class="level2">
+<h2 class="anchored" data-anchor-id="mapping-hiv-prevalence">Mapping HIV prevalence</h2>
+<div class="cell">
+<div class="code-copy-outer-scaffold"><div class="sourceCode cell-code" id="cb4" style="background: #f1f3f5;"><pre class="sourceCode r code-with-copy"><code class="sourceCode r"><span id="cb4-1"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#get drawing coordinates to make world map</span></span>
+<span id="cb4-2">world_map <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">map_data</span>(<span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"world"</span>) </span>
+<span id="cb4-3"></span>
+<span id="cb4-4"><span class="co" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">#join the datasets:</span></span>
+<span id="cb4-5">full_worldHIV <span class="ot" style="color: #003B4F;
+background-color: null;
+font-style: inherit;">&lt;-</span> <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">left_join</span>(world_map, hiv_prevalence_clean, </span>
+<span id="cb4-6">                           <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">join_by</span>(region <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">==</span> region))</span>
+<span id="cb4-7"></span>
+<span id="cb4-8"><span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">ggplot</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">data =</span> full_worldHIV, <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">x =</span> long, <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">y =</span> lat, </span>
+<span id="cb4-9">                                 <span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">group =</span> group)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-10">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">geom_polygon</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">aes</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">fill=</span>prevalence)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-11">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">scale_fill_viridis_c</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-12">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">coord_map</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">projection =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"gilbert"</span>) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-13">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">xlim</span>(<span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">c</span>(<span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">-</span><span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">180</span>,<span class="dv" style="color: #AD0000;
+background-color: null;
+font-style: inherit;">180</span>)) <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-14">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">theme_void</span>() <span class="sc" style="color: #5E5E5E;
+background-color: null;
+font-style: inherit;">+</span></span>
+<span id="cb4-15">  <span class="fu" style="color: #4758AB;
+background-color: null;
+font-style: inherit;">labs</span>(<span class="at" style="color: #657422;
+background-color: null;
+font-style: inherit;">title =</span> <span class="st" style="color: #20794D;
+background-color: null;
+font-style: inherit;">"Global HIV prevalence(%)"</span>)</span></code></pre></div></div>
+<div class="cell-output-display">
+<div>
+<figure class="figure">
+<p><img src="https://your-website-url.example.com/posts/HIV prevalence - Blog1/index_files/figure-html/unnamed-chunk-4-1.png" class="img-fluid figure-img" width="672"></p>
+</figure>
+</div>
+</div>
+</div>
+<p>Mapping HIV prevalence to a map of the world gives us further insight as to relative continental prevalence. Based on the map, we can see that the southern part of Africa appears to have higher HIV prevalence compared to other continents of the world. What limits this visualization however, is the greyed out countries showing a lack of data for that region. This is either due to a mismatch in region label when joining the datasets, or a lack of data for that region. The main takeaway is that Southern African regions appear to be the most affected by HIV in their population.<br>
+</p>
+</section>
+</section>
+<section id="conclusions" class="level1">
+<h1>Conclusions</h1>
+<section id="flaws" class="level2">
+<h2 class="anchored" data-anchor-id="flaws">Flaws</h2>
+<ul>
+<li>My approach to this dataset, as earlier mentioned, is limited by the temporal stamp of the data reported. Although it didn’t vastly affect interpretations, it should still be considered when evaluating HIV prevalence.<br>
+<br>
+</li>
+<li>The world map visualization of prevalence is missing considerable data, which limits the confidence of my conclusion that Southern Africa is the the most affected by HIV.<br>
+<br>
+## Future Directions</li>
+<li>Prevalence isn’t the only way to visualize the spread and impact of a disease, and in future visualizations the number of people with the disease, as well as deaths from it, should be presented.<br>
+<br>
+</li>
+<li>If given more time, I would comb through the region labels and adjust them or confirm that they match the labels within the world_map data set. Making sure the labels align would insure that all the regions in the HIV data set are actually represented in the map.<br>
+</li>
+</ul>
+</section>
+<section id="connections-to-data334" class="level2">
+<h2 class="anchored" data-anchor-id="connections-to-data334">Connections to Data334</h2>
+<ul>
+<li>Lollipop plot: This is a good visualization because the line segments all start at 0, so they provide an accurate communal baseline for reader interpretation. The size and color of the lollipops has also been adjusted for aesthetic pleasure. To distinguish between the 2 datasets used, a title above the plot is also utilized, so its easier for the reader to orient themselves.<br>
+</li>
+<li>Sequential map: This is a good visualization as the colors are color blind friendly, and there is no background grid or fluff to disorient the viewer. A label at the top clarifies what data is being used, and the color scale is sequential since it best represents the prevalence percentage scale (opposed to diverging or catagorical). One spot of critique would be limiting the greyed out countries, but that is already addressed. A map such as this is also a good visualization for this data, since it allows the reader to further pull ideas about geological hotspots of HIV for the globe, an inference that you couldn’t as confidently make out in just the lollipop plot.<br>
+</li>
+</ul>
+</section>
+</section>
+<section id="referencessources" class="level1">
+<h1>References/Sources:</h1>
+<p><strong>Global HIV Data from Kaggle:</strong><br>
+Global Adult HIV Prevalance Data (2024 Updated)<br>
+https://www.kaggle.com/datasets/kanchana1990/global-adult-hiv-prevalance-data-2024-updated<br>
+<strong>Supplementary HIV information:</strong><br>
+https://www.hiv.gov/hiv-basics/overview/about-hiv-and-aids/what-are-hiv-and-aids<br>
+<strong>ChatGPT for data cleaning hitch:</strong><br>
+[<em>My Prompt:</em> I have a dataset in R studio, where one my columns has observations that are all surrounded by quotations like “0Eswatini”. I want to isolate just the region name out of each observation, but attempting to use separate() and listing the xa0 doesn’t work. How can I trim the observations, and why doesn’t separate() work here?]<br>
+<em>AI Solution I chose:</em> AI suggestion: str_replace_all(). This offered AI solution takes the tidyr package and mutate() solution route. I chose this because I’m already using this package for cleaning and am familiar with mutate().<br>
+</p>
 
 
+</section>
 
  ]]></description>
-  <category>news</category>
+  <category>epidemiology</category>
   <category>code</category>
   <category>analysis</category>
-  <guid>https://your-website-url.example.com/posts/post-with-code/</guid>
-  <pubDate>Wed, 28 Jan 2026 05:00:00 GMT</pubDate>
-  <media:content url="https://your-website-url.example.com/posts/post-with-code/image.jpg" medium="image" type="image/jpeg"/>
+  <category>mapping</category>
+  <guid>https://your-website-url.example.com/posts/HIV prevalence - Blog1/</guid>
+  <pubDate>Mon, 02 Feb 2026 05:00:00 GMT</pubDate>
+  <media:content url="https://your-website-url.example.com/posts/HIV prevalence - Blog1/image.jpg" medium="image" type="image/jpeg"/>
 </item>
 <item>
   <title>Welcome To My Blog</title>
