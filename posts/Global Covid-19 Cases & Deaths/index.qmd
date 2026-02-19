@@ -136,4 +136,6 @@ Touching on Data 234 coursework, I utilized labels to add more context to my dea
 `https://www.kaggle.com/datasets/themrityunjaypathak/covid-cases-and-deaths-worldwide`
 
 \
-**Supplementary Covid-19 information:** Pulled from the data description in Kaggle, same source/link as above \^. Lightly filled with personal experience as well.\
+**Supplementary Covid-19 information:** Pulled from the data description in Kaggle, same source/link as above \^. Lightly filled with personal experience as well.
+
+**Image Credit:** Image of a Covid-19 particle was pulled from online, and is owned by Fine Art America. Link to image is here: <https://sl.bing.net/ehW5Wpt8EBo>\
