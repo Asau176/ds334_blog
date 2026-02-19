@@ -132,8 +132,9 @@ Touching on Data 234 coursework, I utilized labels to add more context to my dea
 
 # Sources/Citations
 
-**Dataset: From Kaggle**, titled 'Covid Cases and Deaths Worldwide' \[Reported Cases and Deaths by Country or Territory\], Updated 3 years ago, posted by Mrityunjay pathak. Link:\
-`https://www.kaggle.com/datasets/themrityunjaypathak/covid-cases-and-deaths-worldwide`
+**Dataset: From Kaggle**, titled 'Covid Cases and Deaths Worldwide' \[Reported Cases and Deaths by Country or Territory\], Updated 3 years ago, posted by Mrityunjay pathak.
+
+Link: `https://www.kaggle.com/datasets/themrityunjaypathak/covid-cases-and-deaths-worldwide`
 
 \
 **Supplementary Covid-19 information:** Pulled from the data description in Kaggle, same source/link as above \^. Lightly filled with personal experience as well.
