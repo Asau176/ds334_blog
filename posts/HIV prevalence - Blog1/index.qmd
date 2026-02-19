@@ -1,5 +1,5 @@
 ---
-title: "Blog 1"
+title: "Blog - Global Adult HIV prevalence"
 author: "Rory Sauereisen"
 date: "2026-02-02"
 categories: [epidemiology, code, analysis, mapping]
@@ -7,6 +7,8 @@ image: "image.jpg"
 ---
 
 # This post explores Global Adult HIV prevalence data pulled from Kaggle.
+
+Blog 1, Data Visualizations 334.
 
 ```{r}
 #| message: false
@@ -40,19 +42,19 @@ hiv_prevalence_clean <-
 
 This dataset contains Global Adult HIV prevalence data pulled from the online data source Kaggle, and contains 187 observations. HIV, or Human Immunodeficiency Virus, is a virus that limits your ability to fight other infections due to its own targeting of your body's immune cells. HIV when left untreated can lead to AIDs, a later stage of the HIV infection that results from said immune system damage. There are current treatments to prolong the lives of those with HIV and limit its further spread, but there are currently no cures available for it.\
 This blog will mostly focus on the variables `region` and `prevalence` to visualize the distribution of HIV in the world; answering what region appears to have the highest prevalence while which appears to have the lowest. We'll also be making inferences on what continents appear to have greater or lower HIV prevalence.\
- \
- \
+\
+\
 
 *Dataset Notice:*\
 Upon examining this data, I have found that the year the data was reported is inconsistent. This data set contains reported data on most regions, however the year associated with that entry isn't uniform across all regions. For example, if I were to limit the observations to only containing those from 2024, my sample size would shrink to only 63 regions to make inferences from. Thus, in the following analyses, to maintain reliable interpretations, the information will be displayed twice. Once in the dataset's totality (ignoring year source), and once sourcing data only from year 2024 to represent up-to-date information. (2024 also happens to be the year with the most data entries from).\
 
+### Dataset Variable Decriptions:
 
-### Dataset Variable Decriptions: 
-*region*: The geographical area being analyzed. \
-*prevalence*: Adult Prevalence (%), Percentage of adults aged 15–49 living with HIV.  \
-*n_people*: Number of People with HIV/AIDS, Absolute count of individuals living with HIV in the region.   \
-*deaths*: Annual Deaths from HIV/AIDS, Number of deaths attributed to HIV/AIDS annually.  \
-*datayear*: Year of Estimate, The year when the data was collected or estimated.  \
+*region*: The geographical area being analyzed.\
+*prevalence*: Adult Prevalence (%), Percentage of adults aged 15–49 living with HIV.\
+*n_people*: Number of People with HIV/AIDS, Absolute count of individuals living with HIV in the region.\
+*deaths*: Annual Deaths from HIV/AIDS, Number of deaths attributed to HIV/AIDS annually.\
+*datayear*: Year of Estimate, The year when the data was collected or estimated.\
 
 # Exploring this data set
 
@@ -136,22 +138,24 @@ Mapping HIV prevalence to a map of the world gives us further insight as to rela
     \
 -   The world map visualization of prevalence is missing considerable data, which limits the confidence of my conclusion that Southern Africa is the the most affected by HIV.\
     \
+    
 ## Future Directions
 -   Prevalence isn't the only way to visualize the spread and impact of a disease, and in future visualizations the number of people with the disease, as well as deaths from it, should be presented.\
     \
 -   If given more time, I would comb through the region labels and adjust them or confirm that they match the labels within the world_map data set. Making sure the labels align would insure that all the regions in the HIV data set are actually represented in the map.\
 
 ## Connections to Data334
-- Lollipop plot:  This is a good visualization because the line segments all start at 0, so they provide an accurate communal baseline for reader interpretation. The size and color of the lollipops has also been adjusted for aesthetic pleasure. To distinguish between the 2 datasets used, a title above the plot is also utilized, so its easier for the reader to orient themselves. \
-- Sequential map:  This is a good visualization as the colors are color blind friendly, and there is no background grid or fluff to disorient the viewer. A label at the top clarifies what data is being used, and the color scale is sequential since it best represents the prevalence percentage scale (opposed to diverging or catagorical). One spot of critique would be limiting the greyed out countries, but that is already addressed. A map such as this is also a good visualization for this data, since it allows the reader to further pull ideas about geological hotspots of HIV for the globe, an inference that you couldn't as confidently make out in just the lollipop plot.  \
+
+-   Lollipop plot: This is a good visualization because the line segments all start at 0, so they provide an accurate communal baseline for reader interpretation. The size and color of the lollipops has also been adjusted for aesthetic pleasure. To distinguish between the 2 datasets used, a title above the plot is also utilized, so its easier for the reader to orient themselves.\
+-   Sequential map: This is a good visualization as the colors are color blind friendly, and there is no background grid or fluff to disorient the viewer. A label at the top clarifies what data is being used, and the color scale is sequential since it best represents the prevalence percentage scale (opposed to diverging or catagorical). One spot of critique would be limiting the greyed out countries, but that is already addressed. A map such as this is also a good visualization for this data, since it allows the reader to further pull ideas about geological hotspots of HIV for the globe, an inference that you couldn't as confidently make out in just the lollipop plot.\
 
 # References/Sources:
 
-**Global HIV Data from Kaggle:** \
+**Global HIV Data from Kaggle:**\
 Global Adult HIV Prevalance Data (2024 Updated)\
-https://www.kaggle.com/datasets/kanchana1990/global-adult-hiv-prevalance-data-2024-updated    \
-**Supplementary HIV information:** \
-https://www.hiv.gov/hiv-basics/overview/about-hiv-and-aids/what-are-hiv-and-aids    \
+https://www.kaggle.com/datasets/kanchana1990/global-adult-hiv-prevalance-data-2024-updated\
+**Supplementary HIV information:**\
+https://www.hiv.gov/hiv-basics/overview/about-hiv-and-aids/what-are-hiv-and-aids\
 **ChatGPT for data cleaning hitch:**\
-[*My Prompt:* I have a dataset in R studio, where one my columns has observations that are all surrounded by quotations like "\xa0Eswatini". I want to isolate just the region name out of each observation, but attempting to use separate() and listing the xa0 doesn't work. How can I trim the observations, and why doesn't separate() work here?\]\
+\[*My Prompt:* I have a dataset in R studio, where one my columns has observations that are all surrounded by quotations like "\xa0Eswatini". I want to isolate just the region name out of each observation, but attempting to use separate() and listing the xa0 doesn't work. How can I trim the observations, and why doesn't separate() work here?\]\
 *AI Solution I chose:* AI suggestion: str_replace_all(). This offered AI solution takes the tidyr package and mutate() solution route. I chose this because I'm already using this package for cleaning and am familiar with mutate().\
