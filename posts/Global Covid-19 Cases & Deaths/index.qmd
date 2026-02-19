@@ -18,7 +18,7 @@ library(tidyr)
 library(dplyr)
 library(ggplot2)
 library(forcats)
-covid_worldwide <- read_csv("posts/Blog 2/covid_worldwide.csv") |>
+covid_worldwide <- read_csv("covid_worldwide.csv") |>
  select(-1) |> #remove 1st ID column
   rename(country = Country, tot_cases = `Total Cases`, deaths = `Total Deaths`, 
          recovered = `Total Recovered`, active_cases = `Active Cases`, 
